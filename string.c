@@ -12,9 +12,11 @@
  */
 void *(memcpy)(void *dest, const void *src, size_t n)
 {
+	char* d = (char*)dest;
+	char* s = (char*)src;
 	while (n-- > 0)
 	{
-		*(char*)(dest + n) = *(char*)(src + n);
+		*d++ = *s++;
 	}
 	return dest;
 }
@@ -22,7 +24,7 @@ void *(memcpy)(void *dest, const void *src, size_t n)
 /* function: memmove
  * -----------------------------
  * Copy n bytes from src to dest.
- * Allows for overlap.
+ * Allows for overlap. Use buffer if overlap.
  *
  * param[out]	dest	pointer to start of destination block
  * param[in]	src		pointer to start of source memory block
@@ -30,7 +32,8 @@ void *(memcpy)(void *dest, const void *src, size_t n)
  */
 void *(my_memmove)(void *dest, const void *src, size_t n)
 {
-	printf("oh hi");
+	char* d = (char*)dest;
+	char* s = (char*)src;
 
 	if ((dest > src && dest - src >= n-1)
 		|| (src > dest && src - dest >= n-1))
@@ -38,21 +41,23 @@ void *(my_memmove)(void *dest, const void *src, size_t n)
 		// no overlap
 		while (n-- > 0)
 		{
-			*(char*)(dest + n) = *(char*)(src + n);
+			*d++ = *s++;
 		}
 	}
 	else
 	{
 		// overlap - use buffer
 		char buf[n];
+		char* bufp = buf;
 		int nn = n;
 		while (nn-- > 0)
 		{
-			buf[nn] = *(char*)(src + nn);
+			*bufp++ = *s++;
 		}
+		bufp = buf; // reset pointer to start of buffer
 		while (n-- > 0)
 		{
-			*(char*)(dest + n) = buf[n];
+			*d++ = *bufp++;
 		}
 	}
 
