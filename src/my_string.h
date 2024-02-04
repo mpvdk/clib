@@ -5,13 +5,13 @@
 #define __need_size_t
 #include <stddef.h>
 
-void *my_memchr(const void *s, int c, size_t n);
-int my_memcmp(const void *lhs, const void *rhs, size_t n);
-void *my_memcpy(void *dest, const void *src, size_t n);
-void *my_memmove(void *dest, const void *src, size_t n);
+void* my_memchr(const void* searchable, int ch, size_t count);
+int my_memcmp(const void* lhs, const void* rhs, size_t count);
+void* my_memcpy(void* dest, const void* src, size_t count);
+void* my_memmove(void* dest, const void* src, size_t count);
+void* my_memset(void* dest, int ch, size_t count);
+char* my_strcat(char* dest, const char* src);
 
-void *my_memset(void *, int c, size_t n);
-char *my_strcat(char *dest, const char *src);
 char *my_strncat(char *dest, const char *src, size_t n);
 char *my_strchr(const char *, int c);
 char *my_strrchr(const char *, int c);
