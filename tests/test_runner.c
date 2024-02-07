@@ -8,6 +8,8 @@
 #include "string/my_memmove.h"
 #include "string/my_memset.h"
 #include "string/my_strcat.h"
+#include "string/my_strncat.h"
+#include "string/my_strchr.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -76,6 +78,21 @@ int main(void) {
   RUN_TEST(test_my_strcat_empty_destination);
   RUN_TEST(test_my_strcat_null_source);
   RUN_TEST(test_my_strcat_check_return_value);
+
+  // strncat
+  print_header("my_strncat");
+  RUN_TEST(test_my_strncat_normal_use);
+  RUN_TEST(test_my_strncat_append_less_than_count);
+  RUN_TEST(test_my_strncat_append_more_than_count);
+  RUN_TEST(test_my_strncat_count_zero);
+  RUN_TEST(test_my_strncat_check_return_value);
+
+  // strchr
+  print_header("my_strchr");
+  RUN_TEST(test_my_strchr_char_found);
+  RUN_TEST(test_my_strchr_char_not_found);
+  RUN_TEST(test_my_strchr_search_for_null_terminator);
+  RUN_TEST(test_my_strchr_empty_string);
 
   return UNITY_END();
 }

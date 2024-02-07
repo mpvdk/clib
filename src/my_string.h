@@ -10,11 +10,11 @@ int my_memcmp(const void* lhs, const void* rhs, size_t count);
 void* my_memcpy(void* dest, const void* src, size_t count);
 void* my_memmove(void* dest, const void* src, size_t count);
 void* my_memset(void* dest, int ch, size_t count);
-char* my_strcat(char* dest, const char* src);
+char* my_strcat(char* dest, const char* append);
+char* my_strchr(const char* str, int ch);
+char* my_strrchr(const char* str, int ch);
+char *my_strncat(char* dest, const char* append, size_t count);
 
-char *my_strncat(char *dest, const char *src, size_t n);
-char *my_strchr(const char *, int c);
-char *my_strrchr(const char *, int c);
 int my_strcmp(const char *, const char *);
 int my_strncmp(const char *, const char *, size_t n);
 int my_strcoll(const char *, const char *);
