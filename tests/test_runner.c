@@ -10,6 +10,8 @@
 #include "string/my_strcat.h"
 #include "string/my_strncat.h"
 #include "string/my_strchr.h"
+#include "string/my_strcmp.h"
+#include "string/my_strrchr.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -93,6 +95,22 @@ int main(void) {
   RUN_TEST(test_my_strchr_char_not_found);
   RUN_TEST(test_my_strchr_search_for_null_terminator);
   RUN_TEST(test_my_strchr_empty_string);
+
+  // strrchr
+  print_header("my_strrchr");
+  RUN_TEST(test_my_strrchr_char_found);
+  RUN_TEST(test_my_strrchr_char_not_found);
+  RUN_TEST(test_my_strrchr_search_for_null_terminator);
+  RUN_TEST(test_my_strrchr_empty_string);
+  RUN_TEST(test_my_strrchr_char_appears_once);
+
+  // strcmp
+  RUN_TEST(test_my_strcmp_equal_strings);
+  RUN_TEST(test_my_strcmp_first_string_greater);
+  RUN_TEST(test_my_strcmp_second_string_greater);
+  RUN_TEST(test_my_strcmp_empty_first_string);
+  RUN_TEST(test_my_strcmp_empty_second_string);
+  RUN_TEST(test_my_strcmp_both_empty_strings);
 
   return UNITY_END();
 }

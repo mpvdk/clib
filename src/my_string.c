@@ -15,10 +15,10 @@
 void* (my_memchr)(const void* searchable, int ch, size_t count)
 {
   // Cast to int for comparison to c
-  const int* sc = (const int*)searchable;
+  const char* sc = (const char*)searchable;
 
   for (size_t i = 0; i < count; i++)
-    if (sc[i] == ch)
+    if (sc[i] == (char)ch)
       return (void*)(sc + i);
 
   return NULL;
@@ -26,7 +26,7 @@ void* (my_memchr)(const void* searchable, int ch, size_t count)
 
 /* function: memcmp
  * -----------------------------
- * Search string for first occurence of a character.
+ * Compare two blocks of memory
  *
  * param  lhs     pointer to start of block of memory to compare to rhs
  * param  rhs     pointer to start of block of memory to compare to lhs
@@ -169,9 +169,14 @@ char* (my_strcat)(char* dest, const char* append)
 char* my_strchr(const char* str, int ch)
 {
   while(*str != '\0')
+  {
     if (*str == ch)
       return (char*)str;
     str++;
+  }
+
+  if (*str == '\0' && ch == '\0')
+    return (char*)str;
 
   return NULL;
 }
@@ -185,15 +190,33 @@ char* my_strchr(const char* str, int ch)
  *
  * return         pointer to the position if found, NULL otherwise
  */
-char* my_strrchr(const char* str, int ch)
+char* (my_strrchr)(const char* str, int ch)
 {
-  while(*str++);
-  while(*str != '\0')
+  const char* saved = str;
+  while(*++str != '\0');
+  while(str != saved - 1) {
     if (*str == ch)
       return (char*)str;
     str--;
+  } 
 
   return NULL;
+}
+
+/* function: strcmp
+ * -----------------------------
+ * Compare two strings, assuming both are null-terminated
+ *
+ * param  lhs     pointer to start of string to compare to rhs
+ * param  rhs     pointer to start of string compare to lhs
+ *
+ * return             -1 if the first differing byte in lhs is < corresponding byte in rhs
+ *                    0 if lhs and rhs are equal
+ *                    1 if the first differing byte in lhs is > corresponding byte in rhs
+ */
+int my_strcmp(const char* lhs, const char* rhs)
+{
+  // todo
 }
 
 /* function: strncat
@@ -207,7 +230,7 @@ char* my_strrchr(const char* str, int ch)
  *
  * return dest    pointer to start of destination block
  */
-char *(my_strncat)(char* dest, const char* append, size_t count)
+char* (my_strncat)(char* dest, const char* append, size_t count)
 {
   if (append == NULL) return dest;
   if (count < 1) return dest;

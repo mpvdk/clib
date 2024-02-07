@@ -37,3 +37,4 @@ void test_my_memcmp_zero_size(void) {
 
   TEST_ASSERT_EQUAL_INT(0, my_memcmp(block1, block2, size));
 }
+
