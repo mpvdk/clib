@@ -11,7 +11,12 @@
 #include "string/my_strncat.h"
 #include "string/my_strchr.h"
 #include "string/my_strcmp.h"
+#include "string/my_strlen.h"
+#include "string/my_strncmp.h"
 #include "string/my_strrchr.h"
+#include "string/my_strcpy.h"
+#include "string/my_strncpy.h"
+#include "string/my_strspn.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -105,12 +110,50 @@ int main(void) {
   RUN_TEST(test_my_strrchr_char_appears_once);
 
   // strcmp
+  print_header("my_strcmp");
   RUN_TEST(test_my_strcmp_equal_strings);
   RUN_TEST(test_my_strcmp_first_string_greater);
   RUN_TEST(test_my_strcmp_second_string_greater);
   RUN_TEST(test_my_strcmp_empty_first_string);
   RUN_TEST(test_my_strcmp_empty_second_string);
   RUN_TEST(test_my_strcmp_both_empty_strings);
+
+  // strncmp
+  print_header("my_strncmp");
+  RUN_TEST(test_my_strncmp_equal_strings);
+  RUN_TEST(test_my_strncmp_first_string_greater);
+  RUN_TEST(test_my_strncmp_second_string_greater);
+  RUN_TEST(test_my_strncmp_compare_zero_characters);
+  RUN_TEST(test_my_strncmp_compare_partial);
+  RUN_TEST(test_my_strncmp_length_greater_than_strings);
+
+  // strcpy
+  print_header("my_strcpy");
+  RUN_TEST(test_my_strcpy_basic_copy);
+  RUN_TEST(test_my_strcpy_return_value);
+  RUN_TEST(test_my_strcpy_empty_source);
+
+  // strncpy
+  print_header("my_strncpy");
+  RUN_TEST(test_my_strncpy_basic_copy);
+  RUN_TEST(test_my_strncpy_partial_copy);
+  RUN_TEST(test_my_strncpy_excess_count);
+  RUN_TEST(test_my_strncpy_zero_count);
+  RUN_TEST(test_my_strncpy_return_value);
+
+  // strlen
+  print_header("my_strlen");
+  RUN_TEST(test_my_strlen_empty_string);
+  RUN_TEST(test_my_strlen_basic_string);
+  RUN_TEST(test_my_strlen_string_with_spaces); 
+
+  // strspn
+  print_header("my_strspn");
+  RUN_TEST(test_my_strspn_all_chars_found);
+  RUN_TEST(test_my_strspn_no_chars_found);
+  RUN_TEST(test_my_strspn_some_chars_found);
+  RUN_TEST(test_my_strspn_empty_lhs);
+  RUN_TEST(test_my_strspn_empty_rhs);
 
   return UNITY_END();
 }
