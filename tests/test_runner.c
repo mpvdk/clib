@@ -18,6 +18,7 @@
 #include "string/my_strncpy.h"
 #include "string/my_strspn.h"
 #include "string/my_strcspn.h"
+#include "string/my_strpbrk.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -164,6 +165,14 @@ int main(void) {
   RUN_TEST(test_my_strcspn_first_char_match);
   RUN_TEST(test_my_strcspn_normal_operation);
   RUN_TEST(test_my_strcspn_normal_operation_two);
+
+  // strpbrk
+  print_header("my_strpbrk");
+  RUN_TEST(test_my_strpbrk_empty_string);
+  RUN_TEST(test_my_strpbrk_no_match);
+  RUN_TEST(test_my_strpbrk_first_char_match);
+  RUN_TEST(test_my_strpbrk_normal_operation);
+  RUN_TEST(test_my_strpbrk_match_at_end);
 
   return UNITY_END();
 }

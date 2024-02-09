@@ -166,7 +166,7 @@ char* (my_strcat)(char* dest, const char* append)
  *
  * return         pointer to the position if found, NULL otherwise
  */
-char* my_strchr(const char* str, int ch)
+char* (my_strchr)(const char* str, int ch)
 {
   while(*str != '\0')
   {
@@ -190,7 +190,7 @@ char* my_strchr(const char* str, int ch)
  *
  * return   dest    pointer to start of destionation block
  */
-char* my_strcpy(char* dest, const char* src)
+char* (my_strcpy)(char* dest, const char* src)
 {
   size_t str_len = 0;
   const char* saved_src = src;
@@ -212,7 +212,7 @@ char* my_strcpy(char* dest, const char* src)
  *
  * return         number of characters in [str]
  */
-size_t my_strlen(const char* str)
+size_t (my_strlen)(const char* str)
 {
   size_t str_len = 0;
 
@@ -233,7 +233,7 @@ size_t my_strlen(const char* str)
  *                  0 if str1 and str2 are equal
  *                  positive int if the first differing byte in str1 is > corresponding byte in str2
  */
-int my_strcmp(const char* str1, const char* str2)
+int (my_strcmp)(const char* str1, const char* str2)
 {
   while (*str1 && *str2 && (*str1 == *str2))
   {
@@ -283,7 +283,7 @@ char* (my_strncat)(char* dest, const char* append, size_t count)
  *                  0 if str1 and str2 are equal
  *                  positive int if the first differing byte in str1 is > corresponding byte in str2
  */
-int my_strncmp(const char* str1, const char* str2, size_t count)
+int (my_strncmp)(const char* str1, const char* str2, size_t count)
 {
   if (count < 1) return 0;
 
@@ -310,7 +310,7 @@ int my_strncmp(const char* str1, const char* str2, size_t count)
  *                  In other words: length of the part of [str1] that consists
  *                  entirely of characters that do not occur in [str2].
  */
-size_t my_strcspn(const char* str1, const char* str2)
+size_t (my_strcspn)(const char* str1, const char* str2)
 {
   const char* p;
   const char* q;
@@ -339,7 +339,7 @@ size_t my_strcspn(const char* str1, const char* str2)
  *
  * return   dest    pointer to start of destination block
  */
-char* my_strncpy(char* dest, const char* src, size_t count)
+char* (my_strncpy)(char* dest, const char* src, size_t count)
 {
   size_t src_len = 0;
   const char* src_counter = src;
@@ -357,6 +357,29 @@ char* my_strncpy(char* dest, const char* src, size_t count)
   }
 
   return dest;
+}
+
+/* function: strpbrk
+ * -----------------------------
+ * Find the first character in [str1] that matches any character in [str2]
+ *
+ * param    str1    pointer to start of string to be scanned
+ * param    str2    pointer to start of string containing characters to be matched
+ *
+ * return   str1    pointer to char in str1
+ */
+char* (my_strpbrk)(const char* str1, const char* str2)
+{
+  const char* p;
+  while (*str1 != '\0')
+  {
+    for (p = str2; *p != '\0'; p++)
+    {
+      if (*p == *str1) return (char*)str1;
+    }
+    str1++;
+  }
+  return NULL;
 }
 
 /* function: strrchr
@@ -392,7 +415,7 @@ char* (my_strrchr)(const char* str, int ch)
  * return           length of portion of [str1] containing only characters that
  *                  appear in str2.
  */
-size_t my_strspn(const char* str1, const char* str2)
+size_t (my_strspn)(const char* str1, const char* str2)
 {
   const char* p; 
   const char* q;
