@@ -226,21 +226,21 @@ size_t my_strlen(const char* str)
  * -----------------------------
  * Compare two strings, assuming both are null-terminated
  *
- * param    lhs     pointer to start of string to compare to rhs
- * param    rhs     pointer to start of string compare to lhs
+ * param    str1     pointer to start of string to compare to str2
+ * param    str2     pointer to start of string compare to str1
  *
- * return           negative int if the first differing byte in lhs is < corresponding byte in rhs
- *                  0 if lhs and rhs are equal
- *                  positive int if the first differing byte in lhs is > corresponding byte in rhs
+ * return           negative int if the first differing byte in str1 is < corresponding byte in str2
+ *                  0 if str1 and str2 are equal
+ *                  positive int if the first differing byte in str1 is > corresponding byte in str2
  */
-int my_strcmp(const char* lhs, const char* rhs)
+int my_strcmp(const char* str1, const char* str2)
 {
-  while (*lhs && *rhs && (*lhs == *rhs))
+  while (*str1 && *str2 && (*str1 == *str2))
   {
-    lhs++;
-    rhs++;
+    str1++;
+    str2++;
   }
-  return *lhs - *rhs;
+  return *str1 - *str2;
 }
 
 /* function: strncat
@@ -275,27 +275,56 @@ char* (my_strncat)(char* dest, const char* append, size_t count)
  * -----------------------------
  * Compare two strings, assuming both are null-terminated, for a max of [count] bytes
  *
- * param    lhs     pointer to start of string to compare to rhs
- * param    rhs     pointer to start of string compare to lhs
+ * param    str1     pointer to start of string to compare to str2
+ * param    str2     pointer to start of string compare to str1
  * param    count   max number of bytes to compare
  *
- * return           negative int if the first differing byte in lhs is < corresponding byte in rhs
- *                  0 if lhs and rhs are equal
- *                  positive int if the first differing byte in lhs is > corresponding byte in rhs
+ * return           negative int if the first differing byte in str1 is < corresponding byte in str2
+ *                  0 if str1 and str2 are equal
+ *                  positive int if the first differing byte in str1 is > corresponding byte in str2
  */
-int my_strncmp(const char* lhs, const char* rhs, size_t count)
+int my_strncmp(const char* str1, const char* str2, size_t count)
 {
   if (count < 1) return 0;
 
-  while (*lhs && *rhs && count && (*lhs == *rhs))
+  while (*str1 && *str2 && count && (*str1 == *str2))
   {
-    lhs++;
-    rhs++;
+    str1++;
+    str2++;
     count--;
   }
 
   if (count == 0) return 0;
-  return *lhs - *rhs;
+  return *str1 - *str2;
+}
+
+/* function: strcspn
+ * -----------------------------
+ * Find the index of the first occurence of a character in [str1]
+ * that belongs to the set of characters specified by [str2]
+ *
+ * param    str1    pointer to start of string to be scanned
+ * param    str2    pointer to start of string containing chars to be matched
+ *
+ * return           Index of first character found in [str1] that occurs in [str2].
+ *                  In other words: length of the part of [str1] that consists
+ *                  entirely of characters that do not occur in [str2].
+ */
+size_t my_strcspn(const char* str1, const char* str2)
+{
+  const char* p;
+  const char* q;
+  size_t count = 0;
+
+  for (p = str1; *p != '\0'; p++)
+  {
+    for (q = str2; *q != '\0'; q++)
+    {
+      if (*p == *q) return count;
+    }
+    count++;
+  }
+  return count;
 }
 
 /* function: strncpy
@@ -354,26 +383,29 @@ char* (my_strrchr)(const char* str, int ch)
 
 /* function: strspn
  * -----------------------------
- * Search for last occurence of character in string
+ * Count length of initial portion of str1 containing 
+ * only characters that occur in str2.
  *
- * param    lhs     pointer to start of string to be scanned
- * param    ch      pointer to start of string containing chars to be matched
+ * param    str1     pointer to start of string to be scanned
+ * param    str2     pointer to start of string containing chars to be matched
  *
- * return           length of portion of [lhs] containing only characters that
- *                  appear in rhs.
+ * return           length of portion of [str1] containing only characters that
+ *                  appear in str2.
  */
-size_t my_strspn(const char* lhs, const char* rhs)
+size_t my_strspn(const char* str1, const char* str2)
 {
   const char* p; 
   const char* q;
-  size_t cnt = 0;
+  size_t count = 0;
 
-  for (p = lhs; *p != '\0'; ++p) {
-    for (q = rhs; *q != '\0'; ++q) {
-      if (*p == *q) break; // Found a matching character in rhs.
+  for (p = str1; *p != '\0'; p++) 
+  {
+    for (q = str2; *q != '\0'; q++) 
+    {
+      if (*p == *q) break;
     }
-    if (*q == '\0') break; // No matching character found; end of segment.
-    cnt++; // Increment count for each character in lhs found in rhs.
+    if (*q == '\0') break;
+    count++;
   }
-  return cnt;
+  return count;
 }

@@ -17,6 +17,7 @@
 #include "string/my_strcpy.h"
 #include "string/my_strncpy.h"
 #include "string/my_strspn.h"
+#include "string/my_strcspn.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -154,6 +155,15 @@ int main(void) {
   RUN_TEST(test_my_strspn_some_chars_found);
   RUN_TEST(test_my_strspn_empty_lhs);
   RUN_TEST(test_my_strspn_empty_rhs);
+
+  // strcspn
+  print_header("my_strcspn");
+  RUN_TEST(test_my_strcspn_empty_string);
+  RUN_TEST(test_my_strcspn_no_match);
+  RUN_TEST(test_my_strcspn_all_chars_match);
+  RUN_TEST(test_my_strcspn_first_char_match);
+  RUN_TEST(test_my_strcspn_normal_operation);
+  RUN_TEST(test_my_strcspn_normal_operation_two);
 
   return UNITY_END();
 }
