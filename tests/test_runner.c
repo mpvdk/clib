@@ -21,6 +21,7 @@
 #include "string/my_strpbrk.h"
 #include "string/my_strstr.h"
 #include "string/my_strtok.h"
+#include "string/my_memccpy.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -197,6 +198,15 @@ int main(void) {
   RUN_TEST(test_consecutive_delimiters);
   RUN_TEST(test_only_delimiters);
   RUN_TEST(test_delimiter_at_end);
+
+  // memccpy
+  print_header("my_memccpy");
+  RUN_TEST(test_copy_without_specified_character);
+  RUN_TEST(test_copy_with_specified_character_early);
+  RUN_TEST(test_copy_exact_count_bytes);
+  RUN_TEST(test_copy_with_specified_character_at_last);
+  RUN_TEST(test_return_value_with_found_character);
+  RUN_TEST(test_return_value_with_not_found_character);
 
   return UNITY_END();
 }

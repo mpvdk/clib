@@ -527,3 +527,37 @@ char* (my_strtok)(char* str, const char* delim)
 
   return return_address;
 }
+
+/* function: memccpy
+ * -----------------------------
+ * Copy [count] bytes from [src] to [dest], stopping when [ch] is found.
+ * Overlap is UB.
+ *
+ * param    dest    pointer to start of destination block
+ * param    src     pointer to start of source memory block
+ * param    ch      character to stop at when matched
+ * param    count   number of bytes to copy
+ *
+ * return   dest    pointer to start of destination block
+ */
+void*  my_memccpy(void* dest, const void* src, int ch, size_t count)
+{
+  char* d = (char*)dest;
+  char* s = (char*)src;
+
+  while (count-- > 0)
+  {
+    if (*s == ch)
+    {
+      *d = *s;
+      break;
+    }
+    else
+    {
+      *d++ = *s++;
+    }
+  }
+
+  if (*s == ch) return d;
+  return NULL;
+}
