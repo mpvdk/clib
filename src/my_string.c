@@ -5,20 +5,20 @@
  * -----------------------------
  * Search string for first occurence of a character.
  *
- * param    searchable  pointer to start of string which to search
- * param    ch          charachter to look for
- * param    count       number of bytes to analyze
+ * param    haystack  pointer to start of string which to search
+ * param    needle    charachter to look for
+ * param    count     number of bytes to analyze
  *
- * return               pointer to first occurence of char in string, 
- *                      or NULL pointer if character is not found. 
+ * return             pointer to first occurence of char in string, 
+ *                    or NULL pointer if character is not found. 
  */
-void* (my_memchr)(const void* searchable, int ch, size_t count)
+void* (my_memchr)(const void* haystack, int needle, size_t count)
 {
   // Cast to int for comparison to c
-  const char* sc = (const char*)searchable;
+  const char* sc = (const char*)haystack;
 
   for (size_t i = 0; i < count; i++)
-    if (sc[i] == (char)ch)
+    if (sc[i] == (char)needle)
       return (void*)(sc + i);
 
   return NULL;
@@ -161,22 +161,22 @@ char* (my_strcat)(char* dest, const char* append)
  * -----------------------------
  * Search for first occurence of character in string
  *
- * param    str   pointer to the start of the string to search
- * param    ch    character to look for
+ * param    haystack  pointer to the start of the string to search
+ * param    needle    character to look for
  *
- * return         pointer to the position if found, NULL otherwise
+ * return             pointer to the position if found, NULL otherwise
  */
-char* (my_strchr)(const char* str, int ch)
+char* (my_strchr)(const char* haystack, int needle)
 {
-  while(*str != '\0')
+  while(*haystack != '\0')
   {
-    if (*str == ch)
-      return (char*)str;
-    str++;
+    if (*haystack == needle)
+      return (char*)haystack;
+    haystack++;
   }
 
-  if (*str == '\0' && ch == '\0')
-    return (char*)str;
+  if (*haystack == '\0' && needle == '\0')
+    return (char*)haystack;
 
   return NULL;
 }
@@ -386,19 +386,19 @@ char* (my_strpbrk)(const char* str1, const char* str2)
  * -----------------------------
  * Search for last occurence of character in string
  *
- * param    str     pointer to the start of the string to search
- * param    ch      character to look for
+ * param    haystack  pointer to the start of the string to search
+ * param    needle    character to look for
  *
- * return           pointer to the position if found, NULL otherwise
+ * return             pointer to the position if found, NULL otherwise
  */
-char* (my_strrchr)(const char* str, int ch)
+char* (my_strrchr)(const char* haystack, int needle)
 {
-  const char* saved = str;
-  while(*++str != '\0');
-  while(str != saved - 1) {
-    if (*str == ch)
-      return (char*)str;
-    str--;
+  const char* saved = haystack;
+  while(*++haystack != '\0');
+  while(haystack != saved - 1) {
+    if (*haystack == needle)
+      return (char*)haystack;
+    haystack--;
   } 
 
   return NULL;
@@ -431,4 +431,41 @@ size_t (my_strspn)(const char* str1, const char* str2)
     count++;
   }
   return count;
+}
+
+/* function: strstr
+ * -----------------------------
+ * Find first occurence of substring [needle] in [haystack].
+ *
+ * param    haystack  pointer to start of string to be scanned
+ * param    needle    pointer to start of substring to be matched
+ *
+ * return   haystack  pointer to the first occurence in [haystack] of the entire sequence 
+ *                    of characters specified in [needle], or NULL if not found.
+ */
+char* (my_strstr)(const char* haystack, const char* needle)
+{
+  if (haystack == NULL) return NULL;
+  if (needle == NULL) return (char*)haystack;
+  if (*needle == '\0') return (char*)haystack;
+
+  char* saved_needle = (char*)needle;
+  
+  for (; *haystack != 0; haystack++)
+  { 
+    // try to match first char
+    if (*haystack != *needle) continue; // no match
+
+    // first char of needle matched. Try to match rest. 
+    char* substr = (char*)haystack;
+    while (1)
+    {
+      if (*needle == '\0') return (char*)haystack;
+      if (*substr == '\0') break;
+      if (*needle++ != *substr++) break;
+    }
+    if (*needle == '\0') return (char*)haystack; // full needle found
+    needle = saved_needle;
+  }
+  return NULL;
 }

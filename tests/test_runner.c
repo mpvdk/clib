@@ -19,6 +19,7 @@
 #include "string/my_strspn.h"
 #include "string/my_strcspn.h"
 #include "string/my_strpbrk.h"
+#include "string/my_strstr.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -173,6 +174,16 @@ int main(void) {
   RUN_TEST(test_my_strpbrk_first_char_match);
   RUN_TEST(test_my_strpbrk_normal_operation);
   RUN_TEST(test_my_strpbrk_match_at_end);
+
+  // strstr
+  print_header("my_strstr");
+  RUN_TEST(test_find_substring_at_start);
+  RUN_TEST(test_find_substring_in_middle);
+  RUN_TEST(test_find_substring_at_end);
+  RUN_TEST(test_substring_not_found);
+  RUN_TEST(test_empty_substring);
+  RUN_TEST(test_null_haystack_returns_null);
+  RUN_TEST(test_null_needle_returns_haystack);
 
   return UNITY_END();
 }
