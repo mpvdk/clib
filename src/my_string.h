@@ -5,6 +5,7 @@
 #define __need_size_t // tell stddef to define size_t only
 #include <stddef.h>
 
+// ISO C
 void*  my_memchr(const void* haystack, int needle, size_t count);
 int    my_memcmp(const void* lhs, const void* rhs, size_t count);
 void*  my_memcpy(void* dest, const void* src, size_t count);
@@ -23,8 +24,25 @@ char*  my_strpbrk(const char* str1, const char* str2);
 char*  my_strrchr(const char* haystack, int needle);
 size_t my_strspn(const char* str1, const char* str2);
 char*  my_strstr(const char* haystack, const char* needle);
+char*  my_strtok(char* str, const char* delim);
 
-char* my_strerror(int num);
-char* my_strtok(char*, const char* delim);
+char*  my_strerror(int num);
+
+// EXTENSIONS
+void*  my_memccpy(void* dest, const void* src, int ch, size_t count);
+int    my_strcat_s(char *dest, size_t n, const char *src);
+int    my_strcpy_s(char *dest, size_t n, const char *src);
+char*  my_strdup(const char *src);
+int    my_strerror_r(int, char *, size_t);
+size_t my_strlcat(char *dest, const char *src, size_t n);
+size_t my_strlcpy(char *dest, const char *src, size_t n);
+char*  my_strsignal(int sig);
+char*  my_strtok_r(char *, const char *delim, char **saveptr);
+
+// WON'T IMPLEMENT
+//
+// int    my_strcoll(const char* str1, const char* str2);         not dealing with locales
+// char*  my_strerror_r(int, char *, size_t);                     incompatible with posix strerror_r
+// size_t my_strxfrm(char* dest, const char* src, size_t count);  not dealing with locales
 
 #endif /* MY_STRING_H */

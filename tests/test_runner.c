@@ -20,6 +20,7 @@
 #include "string/my_strcspn.h"
 #include "string/my_strpbrk.h"
 #include "string/my_strstr.h"
+#include "string/my_strtok.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -184,6 +185,18 @@ int main(void) {
   RUN_TEST(test_empty_substring);
   RUN_TEST(test_null_haystack_returns_null);
   RUN_TEST(test_null_needle_returns_haystack);
+
+  // strtok
+  print_header("my_strtok");
+  RUN_TEST(test_single_char_delim);
+  RUN_TEST(test_multi_char_delim);
+  RUN_TEST(test_no_delim_in_str);
+  RUN_TEST(test_empty_str);
+  RUN_TEST(test_null_str_on_subsequent_calls);
+  RUN_TEST(test_delim_at_start_and_end);    
+  RUN_TEST(test_consecutive_delimiters);
+  RUN_TEST(test_only_delimiters);
+  RUN_TEST(test_delimiter_at_end);
 
   return UNITY_END();
 }
