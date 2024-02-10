@@ -181,6 +181,23 @@ char* (my_strchr)(const char* haystack, int needle)
   return NULL;
 }
 
+/* function: strcoll
+ * -----------------------------
+ * Compare two strings, assuming both are null-terminated. 
+ *
+ * param    str1     pointer to start of string to compare to str2
+ * param    str2     pointer to start of string compare to str1
+ *
+ * return           negative int if the first differing byte in str1 is < corresponding byte in str2
+ *                  0 if str1 and str2 are equal
+ *                  positive int if the first differing byte in str1 is > corresponding byte in str2
+ */
+int (my_strcoll)(const char* str1, const char* str2)
+{
+  // not dealing with locales
+  return my_strcmp(str1, str2);
+}
+
 /* function: strcpy
  * -----------------------------
  * Copy [src] string to [dest] block, including null-terminator
@@ -540,7 +557,7 @@ char* (my_strtok)(char* str, const char* delim)
  *
  * return   dest    pointer to start of destination block
  */
-void*  my_memccpy(void* dest, const void* src, int ch, size_t count)
+void* (my_memccpy)(void* dest, const void* src, int ch, size_t count)
 {
   char* d = (char*)dest;
   char* s = (char*)src;
@@ -560,4 +577,21 @@ void*  my_memccpy(void* dest, const void* src, int ch, size_t count)
 
   if (*s == ch) return d;
   return NULL;
+}
+
+/* function: strxfrm
+ * -----------------------------
+ * Transform [src] according to locale into [dest] for max of [max] characters
+ *
+ * param    dest    pointer to start of destination block
+ * param    src     pointer to start of source string
+ * param    max     max number of bytes to copy
+ *
+ * return           length of transformed string
+ */
+size_t my_strxfrm(char* dest, const char* src, size_t max)
+{
+  // not dealing with locales - just copy. 
+  my_strncpy(dest, src, max);
+  return my_strlen(src);
 }
