@@ -1,5 +1,6 @@
 #include "my_string.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /* function: memchr
  * -----------------------------
@@ -545,6 +546,23 @@ char* (my_strtok)(char* str, const char* delim)
   return return_address;
 }
 
+/* function: strxfrm
+ * -----------------------------
+ * Transform [src] according to locale into [dest] for max of [max] characters
+ *
+ * param    dest    pointer to start of destination block
+ * param    src     pointer to start of source string
+ * param    max     max number of bytes to copy
+ *
+ * return           length of transformed string
+ */
+size_t my_strxfrm(char* dest, const char* src, size_t max)
+{
+  // not dealing with locales - just copy. 
+  my_strncpy(dest, src, max);
+  return my_strlen(src);
+}
+
 /* function: memccpy
  * -----------------------------
  * Copy [count] bytes from [src] to [dest], stopping when [ch] is found.
@@ -579,19 +597,23 @@ void* (my_memccpy)(void* dest, const void* src, int ch, size_t count)
   return NULL;
 }
 
-/* function: strxfrm
+/* function: strdup
  * -----------------------------
- * Transform [src] according to locale into [dest] for max of [max] characters
+ * Copy [src] string into a heap-allocated destination string
  *
- * param    dest    pointer to start of destination block
- * param    src     pointer to start of source string
- * param    max     max number of bytes to copy
+ * param    src   pointer to start of null-terminated source string
  *
- * return           length of transformed string
+ * return         pointer to start of destination block on heap
  */
-size_t my_strxfrm(char* dest, const char* src, size_t max)
+char* (my_strdup)(const char* src)
 {
-  // not dealing with locales - just copy. 
-  my_strncpy(dest, src, max);
-  return my_strlen(src);
+  if (src == NULL) return NULL;
+
+  char* copy;
+  size_t len = my_strlen(src) + 1;
+  
+  if (!(copy = malloc(len))) return NULL;
+  my_memcpy(copy, src, len);
+  return copy;
 }
+

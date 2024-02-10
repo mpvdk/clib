@@ -22,6 +22,7 @@
 #include "string/my_strstr.h"
 #include "string/my_strtok.h"
 #include "string/my_memccpy.h"
+#include "string/my_strdup.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -207,6 +208,13 @@ int main(void) {
   RUN_TEST(test_copy_with_specified_character_at_last);
   RUN_TEST(test_return_value_with_found_character);
   RUN_TEST(test_return_value_with_not_found_character);
+
+  // strdup
+  print_header("my_strdup");
+  RUN_TEST(test_my_strdup_null_ptr);
+  RUN_TEST(test_my_strdup_empty_string);
+  RUN_TEST(test_my_strdup_basic_string);
+  RUN_TEST(test_my_strdup_long_string);
 
   return UNITY_END();
 }
