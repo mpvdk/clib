@@ -1,6 +1,7 @@
 #include "my_string.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /* function: memchr
  * -----------------------------
@@ -53,7 +54,7 @@ int (my_memcmp)(const void* lhs, const void* rhs, size_t count)
 
 /* function: memcpy
  * -----------------------------
- * Copy n bytes from src to dest.
+ * Copy [count] bytes from [src] to [dest].
  * Overlap is UB.
  *
  * param    dest    pointer to start of destination block
@@ -75,7 +76,7 @@ void* (my_memcpy)(void* dest, const void* src, size_t count)
 
 /* function: memmove
  * -----------------------------
- * Copy n bytes from src to dest.
+ * Copy [count] bytes from [src] to [dest].
  * Allows for overlap.
  *
  * param    dest    pointer to start of destination block
@@ -115,7 +116,7 @@ void* (my_memmove)(void* dest, const void* src, size_t count)
 
 /* function: memset
  * -----------------------------
- * Set bytes to value
+ * Set [count] bytes in [dest] to value [ch]
  *
  * param    dest    pointer to start of destination block
  * param    ch      value to set bytes to
@@ -137,7 +138,7 @@ void* (my_memset)(void* dest, int ch, size_t count)
 
 /* function: strcat
  * -----------------------------
- * Append copy of append to dest
+ * Append copy of [append] to [dest]
  *
  * param    dest    pointer to start of dest string
  * param    append  pointer to start of string to be appended to dest
@@ -160,7 +161,7 @@ char* (my_strcat)(char* dest, const char* append)
 
 /* function: strchr
  * -----------------------------
- * Search for first occurence of character in string
+ * Search for first occurence of character [needle] in string [haystack]
  *
  * param    haystack  pointer to the start of the string to search
  * param    needle    character to look for
@@ -184,7 +185,7 @@ char* (my_strchr)(const char* haystack, int needle)
 
 /* function: strcoll
  * -----------------------------
- * Compare two strings, assuming both are null-terminated. 
+ * Compare two strings, assuming both are null-terminated.
  *
  * param    str1     pointer to start of string to compare to str2
  * param    str2     pointer to start of string compare to str1
@@ -617,3 +618,35 @@ char* (my_strdup)(const char* src)
   return copy;
 }
 
+/* function: strlcat
+ * -----------------------------
+ * Append copy of [append] to [dest] for max of [buf_size] bytes
+ *
+ * param    dest      pointer to start of dest string
+ * param    append    pointer to start of string to be appended to dest
+ * param    buf_size  the size of the dest buffer
+ *
+ * return   dest      strlen(append) + MIN(buf_size, strlen(dest))
+ */
+size_t my_strlcat(char* dest, const char* append, size_t buf_size)
+{
+  const size_t retval = my_strlen(append) + (my_strlen(dest) > buf_size ? buf_size : my_strlen(dest));
+
+  if (buf_size == 0) 
+    return retval;
+
+  char* d = dest;
+  const char* a = append;
+  size_t s = buf_size;
+
+  while (s-- != 0 && *d != '\0')
+    d++;
+
+  while (s-- != 0 && *a != '\0')
+    *d++ = *a++;
+
+  if (s != 0)
+    *++d = '\0';
+
+  return retval;
+}

@@ -23,6 +23,7 @@
 #include "string/my_strtok.h"
 #include "string/my_memccpy.h"
 #include "string/my_strdup.h"
+#include "string/my_strlcat.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -215,6 +216,15 @@ int main(void) {
   RUN_TEST(test_my_strdup_empty_string);
   RUN_TEST(test_my_strdup_basic_string);
   RUN_TEST(test_my_strdup_long_string);
+
+  // strlcat
+  print_header("my_strlcat");
+  RUN_TEST(test_my_strlcat_basic_concatenation);
+  RUN_TEST(test_my_strlcat_buffer_exactly_filled);
+  RUN_TEST(test_my_strlcat_buffer_overflow);
+  RUN_TEST(test_my_strlcat_append_empty_string);
+  RUN_TEST(test_my_strlcat_dest_empty_string);
+  RUN_TEST(test_my_strlcat_count_zero);
 
   return UNITY_END();
 }

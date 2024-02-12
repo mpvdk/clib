@@ -31,9 +31,9 @@ size_t my_strxfrm(char* dest, const char* src, size_t max);
 // EXTENSIONS
 void*  my_memccpy(void* dest, const void* src, int ch, size_t count);
 char*  my_strdup(const char* src);
+size_t my_strlcat(char* dest, const char* append, size_t buf_size);
 
-size_t my_strlcat(char* dest, const char* src, size_t count);
-size_t my_strlcpy(char* dest, const char* src, size_t count);
+size_t my_strlcpy(char* dest, const char* src, size_t buf_size);
 char*  my_strtok_r(char* str, const char* delim, char** saveptr);
 
 // WON'T IMPLEMENT
