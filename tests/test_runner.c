@@ -25,13 +25,12 @@
 #include "string/my_strdup.h"
 #include "string/my_strlcat.h"
 #include "string/my_strlcpy.h"
+#include "string/my_strtok_r.h"
 
 void setUp(void) {
-  // global setup stuff up here
 }
 
 void tearDown(void) {
-  // global cleanup stuff up here
 }
 
 void print_header(char const * title)
@@ -235,6 +234,15 @@ int main(void) {
   RUN_TEST(test_my_strlcpy_empty_source);
   RUN_TEST(test_my_strlcpy_empty_dest);
   RUN_TEST(test_my_strlcpy_large_source);
+
+  // strtok_r
+  print_header("my_strtok_r");
+  RUN_TEST(test_my_strtok_r_single_token);
+  RUN_TEST(test_my_strtok_r_multiple_tokens);
+  RUN_TEST(test_my_strtok_r_no_tokens);
+  RUN_TEST(test_my_strtok_r_delimiters_at_start_and_end);
+  RUN_TEST(test_my_strtok_r_continuous_delimiters);
+  RUN_TEST(test_my_strtok_r_null_str_on_subsequent_calls);
 
   return UNITY_END();
 }

@@ -628,7 +628,7 @@ char* (my_strdup)(const char* src)
  *
  * return   dest      strlen(append) + MIN(buf_size, strlen(dest))
  */
-size_t my_strlcat(char* dest, const char* append, size_t buf_size)
+size_t (my_strlcat)(char* dest, const char* append, size_t buf_size)
 {
   const size_t retval = my_strlen(append) + (my_strlen(dest) > buf_size ? buf_size : my_strlen(dest));
 
@@ -661,7 +661,7 @@ size_t my_strlcat(char* dest, const char* append, size_t buf_size)
  *
  * return   dest    pointer to start of destionation block
  */
-size_t my_strlcpy(char* dest, const char* src, size_t buf_size)
+size_t (my_strlcpy)(char* dest, const char* src, size_t buf_size)
 {
   size_t retval = my_strlen(src);
 
@@ -670,4 +670,70 @@ size_t my_strlcpy(char* dest, const char* src, size_t buf_size)
   *dest = '\0';
 
   return retval;
+}
+
+/* function: strtok_r
+ * -----------------------------
+ * Break [str] into a series of tokens using delimiter [delim].
+ * Re-entrant.
+ *
+ * param    str       pointer to start of string to be scanned
+ * param    delim     pointer to start of substring to be matched
+ * param    saveptr   pointer to char* var to maintain state
+ *
+ * return             pointer to the first token found in the string. 
+ *                    NULL if no matches left. 
+ */
+char* (my_strtok_r)(char* str, const char* delim, char** saveptr)
+{
+  if (str == NULL) {
+    str = *saveptr;  // continue from location saved by prev invocation
+  }
+  if (str == NULL) return NULL;     // invalid use
+  if (*str == '\0') return NULL;    // no (more) tokens to be found
+
+  // Skip any tokens at start of string
+  while (*str != '\0')
+  {
+    int delim_matched = 0;
+    for (const char* d = delim; *d != '\0'; d++)
+    {
+      if (*str == *d)
+      {
+        str++;
+        delim_matched = 1;
+        break;
+      }
+    }
+    if (!delim_matched) break; // all delims at start of string skipped
+  }
+  if (*str == '\0') return NULL; // end of string reached
+
+  // find first matching delim, turn it into '\0'
+  char* return_address = str;
+  // token1\0,token2\0,token3\0
+  while (1)
+  {
+    if (*str == '\0') 
+    {
+      *saveptr = str;
+      break;
+    }
+    int delim_matched = 0;
+    for (const char* d = delim; *d != '\0'; d++)
+    {
+      if (*str != *d)
+      {
+        continue;
+      }
+      delim_matched = 1;
+      *str = '\0';
+      *saveptr = ++str;
+      break;
+    }
+    if (delim_matched) break;
+    str++;
+  }
+
+  return return_address;
 }
