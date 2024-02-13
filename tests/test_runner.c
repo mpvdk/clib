@@ -24,6 +24,7 @@
 #include "string/my_memccpy.h"
 #include "string/my_strdup.h"
 #include "string/my_strlcat.h"
+#include "string/my_strlcpy.h"
 
 void setUp(void) {
   // global setup stuff up here
@@ -225,6 +226,15 @@ int main(void) {
   RUN_TEST(test_my_strlcat_append_empty_string);
   RUN_TEST(test_my_strlcat_dest_empty_string);
   RUN_TEST(test_my_strlcat_count_zero);
+
+  // strlcpy
+  print_header("my_strlcpy");
+  RUN_TEST(test_my_strlcpy_null_terminated_result);
+  RUN_TEST(test_my_strlcpy_exact_buffer_size);
+  RUN_TEST(test_my_strlcpy_buffer_too_small);
+  RUN_TEST(test_my_strlcpy_empty_source);
+  RUN_TEST(test_my_strlcpy_empty_dest);
+  RUN_TEST(test_my_strlcpy_large_source);
 
   return UNITY_END();
 }

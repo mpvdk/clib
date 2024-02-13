@@ -650,3 +650,24 @@ size_t my_strlcat(char* dest, const char* append, size_t buf_size)
 
   return retval;
 }
+
+/* function: strlcpy
+ * -----------------------------
+ * Copy [src] string to [dest] block, including null-terminator
+ *
+ * param    dest      pointer to start of destination block
+ * param    src       pointer to start of string to copy
+ * param    buf_size  the size of dest buffer
+ *
+ * return   dest    pointer to start of destionation block
+ */
+size_t my_strlcpy(char* dest, const char* src, size_t buf_size)
+{
+  size_t retval = my_strlen(src);
+
+  while (*src != '\0' && buf_size-- > 1)
+    *dest++ = *src++;
+  *dest = '\0';
+
+  return retval;
+}
