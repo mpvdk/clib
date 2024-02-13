@@ -52,5 +52,5 @@ void test_my_strtok_r_null_str_on_subsequent_calls(void) {
     char* saveptr;
     TEST_ASSERT_EQUAL_STRING("token1", my_strtok_r(input, " ", &saveptr));
     TEST_ASSERT_EQUAL_STRING("token2", my_strtok_r(NULL, " ", &saveptr));
-    TEST_ASSERT_NULL(my_strtok_r(NULL, " ", &saveptr)); // No more tokens
+    TEST_ASSERT_NULL(my_strtok_r(NULL, " ", &saveptr));
 }

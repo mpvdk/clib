@@ -528,6 +528,11 @@ char* (my_strtok)(char* str, const char* delim)
   char* return_address = str;
   while (1)
   {
+    if (*str == '\0') 
+    {
+      save = str;
+      break;
+    }
     int delim_matched = 0;
     for (const char* d = delim; *d != '\0'; d++)
     {

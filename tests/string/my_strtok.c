@@ -65,6 +65,7 @@ void test_consecutive_delimiters(void) {
     token = my_strtok(NULL, ",");
     TEST_ASSERT_NOT_NULL(token);
     TEST_ASSERT_EQUAL_STRING("world", token);
+    TEST_ASSERT_NULL(my_strtok(NULL, ","));
 }
 
 // Test when the string consists only of delimiters
