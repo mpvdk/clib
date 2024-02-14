@@ -36,11 +36,9 @@ The executable that is built can then be found in `bld/bin`.
 
 # Status
 
-Below you'll find a list of all the components of the C standard library and their status within
-this project.
+Below you'll find a list of all the components of the C standard library and their status within this project.
 
-Some of these are not very interesting and me be removed from the to-do list later if they're not
-very educational.
+Some of these are not very interesting and me be moved from the to-do list to the "won't do" list later if they're not very educational.
 
 ### Done:
 - string
@@ -76,3 +74,6 @@ very educational.
 - uchar
 - wchar
 - wctype
+
+### Won't do:
+
