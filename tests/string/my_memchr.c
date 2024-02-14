@@ -41,7 +41,7 @@ void test_my_memchr_n_greater_than_string_length(void) {
   #pragma GCC diagnostic ignored "-Wstringop-overread"
   char str[] = "Hello, world!";
   TEST_ASSERT_EQUAL_PTR(&str[13], my_memchr(str, '\0', 15));
-  #pragma GCC diagnostics pop
+  #pragma GCC diagnostic pop
 }
 
 // Test with n is zero
