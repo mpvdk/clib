@@ -18,6 +18,8 @@ And in your project, use:
 And then obviously add the source file to your dependencies when you build and the resulting object file when you assemble. 
 
 # Testing
+All modules and all functions have multiple tests. 
+
 All the test files are in the `tests` directory. Every module has it's own sub-directory. For example, `tests/string`. And every function has it's own test source and header file. For example, `tests/string/my_strcpy.c` and `tests/string/my_strcpy.h`.
 
 The root Makefile has a target to build all tests, but also targets to test individual modules. 
